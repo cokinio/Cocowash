@@ -1,0 +1,43 @@
+// variables globales
+$gris:rgb(247, 247, 247);
+$grisa09: rgba(247, 247, 247,0.9);
+$grisa08: rgba(247, 247, 247,0.8);
+$grisOscuro: rgb(230, 228, 228);
+$grisClaro:#555;
+$amarillo: rgb( 245, 214, 0);
+$negro:rgb( 13, 13, 13);
+$white: rgb(255,255,255);
+$celeste: #019CDC;
+$celeste2: #019BDB;
+$verde:#5EBB60;
+
+
+$fontPrincipal: sans-serif;
+$fontSecundary: 'Roboto Condensed', sans-serif;
+$fontXxs: 1rem;
+$fontXs: 1.8rem;
+$fontSm: 2rem;
+$fontSm2: 2.2rem;
+$fontSmBig:2.5rem;
+$fontMd: 3rem;
+$fontLg: 3.8rem;
+$fontXl: 4rem;
+
+$fontLigth:300;
+$fontRegular:400;
+$fontBold:700;
+
+$fontWeigth:(
+    ligth:300,
+    regular:400,
+    bold:700
+);
+
+//declaro mixin
+@mixin texto ($family, $size, $color, $height, $weigth) {
+    color:$color;
+    font-family: $family;
+    font-size: $size; 
+    line-height: $height; 
+    font-weight: $weigth;
+}

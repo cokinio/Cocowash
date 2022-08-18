@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,700;1,400&display=swap');
+
+html{
+    font-size: 62.5%;
+}
+
+h1{
+    font-size: $fontXl;
+}
+
+h2{
+    font-size: $fontLg;
+}
+
+h3{ 
+    font-size: $fontMd;
+}
+h1,h2,h3{
+    font-family: $fontPrincipal;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+p{ 
+    font-family: $fontPrincipal;
+    font-size: $fontSm;
+    text-align: center;
+}
+
+ul{
+    li{
+        font-family: $fontPrincipal;
+        font-size: $fontSm;
+    }
+}
+
+.textLigth{
+    font-weight: map-get($map:$fontWeigth, $key:'ligth');
+}
+
+.textRegular{
+    font-weight: map-get($map:$fontWeigth, $key:'regular');
+}
+
+.textBold{
+    font-weight: map-get($map:$fontWeigth, $key:'bold');
+}
+
+.text-center{
+    text-align: center;
+}
+
+.alineacion-left{
+    h2{
+        text-align: left;
+    }
+    p{
+        text-align: left;
+    }
+}
+

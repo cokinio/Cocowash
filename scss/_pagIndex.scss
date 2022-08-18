@@ -1,0 +1,90 @@
+*{
+    margin: 0px;
+    padding:0px;
+    font-family: $fontPrincipal;
+    box-sizing: border-box;
+}
+
+.bloque1{
+    padding: 2px 0px;
+    width: 50vh;
+    height: 50vh;
+    background-color: $celeste;
+    h3{
+        @include texto($fontSecundary, $fontMd, white, $fontLg, $fontBold);
+        text-align: center;
+    } 
+    p{
+        @include texto($fontSecundary, $fontSm2, white, $fontMd, $fontRegular);
+        text-align: center;
+    } 
+
+    img{
+        width:30%;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        path{
+            fill:white;
+        } 
+    }
+}
+
+.bloque2{
+    padding: 2px 2px;
+    width: 50vh;
+    height: 50vh;
+    background-color:$grisOscuro;
+    h3{
+        @include texto($fontPrincipal, $fontMd, $negro, $fontLg, $fontBold);
+        text-align: center;
+    } 
+    p{
+        @include texto($fontSecundary, $fontSm2, $negro, $fontMd, $fontRegular);
+        text-align: center;
+    } 
+
+    img{
+        width:30%;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        path{
+            fill:white;
+        } 
+    }
+}
+
+.bloque3{
+    padding: 2px 0px;
+    width: 50vh;
+    height: 50vh;
+    background-color: $verde;
+    h3{
+        @include texto($fontSecundary, $fontMd,$white, $fontLg, $fontBold);
+        text-align: center;
+    } 
+    p{
+        @include texto($fontSecundary, $fontSm2,$white, $fontMd, $fontRegular);
+        text-align: center;
+    } 
+
+    img{
+        width:30%;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        path{
+            fill:white;
+        } 
+    }
+}
+
+.bg-gris{
+    background-color: $grisa09;
+}
+
+.marca{
+    background-color: $celeste2;
+    color: $white;
+}
