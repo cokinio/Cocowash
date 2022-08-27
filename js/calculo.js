@@ -47,7 +47,11 @@ class Cliente{
 //     {id:2, descripcion:"pantalon", precio:500, talle:"m", color:"negro"},
 //     {id:3, descripcion:"buzo", precio:700, talle:"s", color:"violeta"},
 //     {id:2, descripcion:"pantalon", precio:500, talle:"m", color:"azul"},
+//     {id:1, descripcion:"remera", precio:250, talle:"xl", color:"marron"},
 // ];
+
+// const cliente1 = new Cliente("pedro","gonzales",carrito);
+
 
 
 // Defino las Funciones
@@ -73,9 +77,10 @@ let apellido = prompt("Ingrese su apellido");
 let carrito = [];
 const cliente1 = new Cliente(nombre,apellido,carrito);
 
-/////////////////////// consulto por el pedido ///////////////////////////
+///////////////////// consulto por el pedido ///////////////////////////
 
-//consulto por remeras
+////consulto por remeras
+
 cantRemeras= parseInt(prompt("Ingrese la cantidad de remeras que desea lavar"));
 
 for (i=0; i<cantRemeras; i++){
@@ -120,44 +125,43 @@ console.log(cliente1)
 let arrPantalon = cliente1.carrito.filter(esPantalon);
 let arrRemera =cliente1.carrito.filter(esRemera);
 let arrBuzo =cliente1.carrito.filter(esBuzo);
+const cantidadProductos=3;
+// armo el mensaje a mostrar en consola
 
 let mensaje= "el cliente "+ cliente1.nombre +" "+ cliente1.apellido+ " desea lavar ";
-let mensaje1= arrRemera.length + " remeras de colores ";
 
-if (arrRemera.length==1){
-    mensaje1 =mensaje1 + arrRemera[0].color;
-}
-else{
-    for (i=0; i<arrRemera.length ; i++){
-        mensaje1 =mensaje1 + arrRemera[i].color + ", ";
+let cantidades = [arrPantalon,arrRemera,arrBuzo];
+let singular = [" pantalon ", " remera ", " buzo "];
+let plural =[" pantalones ", " remeras ", " buzos "];
+
+console.log(cantidades[0][0].color);
+
+
+for (i=0; i<cantidadProductos; i++){
+    if (cantidades[i].length==1){
+        mensaje= mensaje+ cantidades[i].length + singular[i]+"de color "+ cantidades[i][0].color;
+    }
+    else{
+        mensaje= mensaje+ cantidades[i].length + plural[i] + "de colores ";
+        for (j=0; j<cantidades[i].length; j++){
+            if (j<cantidades[i].length-2){
+                mensaje= mensaje+cantidades[i][j].color+", ";
+            }else if (j<cantidades[i].length-1){
+                mensaje= mensaje+cantidades[i][j].color+" y ";
+            }else{
+                mensaje= mensaje+cantidades[i][j].color;
+            }
+        }
+    }
+    // ve si poner coma o un y en el mensaje
+    if (i<cantidadProductos-2){
+        mensaje= mensaje+ ", ";
+    }else if(i<cantidadProductos-1) {
+        mensaje= mensaje+ " y ";
+    }else{
+        mensaje= mensaje+ " ";
     }
 }
 
-let mensaje2= arrPantalon.length + " pantalones de colores ";
-
-
-if (arrPantalon.length==1){
-    mensaje2 =mensaje2 + arrPantalon[0].color;
-}
-else{
-    for (i=0; i<arrPantalon.length ; i++){
-        mensaje2 =mensaje2 + arrPantalon[i].color + ", ";
-    }
-}
-
-let mensaje3= arrBuzo.length + " buzos de colores ";
-
-
-if (arrBuzo.length==1){
-    mensaje3 =mensaje3 + arrBuzo[0].color;
-}
-else{
-    for (i=0; i<arrBuzo.length ; i++){
-        mensaje3 =mensaje3 + arrBuzo[i].color + ", ";
-    }
-}
-
-let mensaje4=" por un total de "+funTotal(carrito); 
-
-let texto = mensaje + mensaje1 + mensaje2 + mensaje3+mensaje4;
-console.log( texto );
+mensaje=mensaje+"por un total de "+funTotal(cliente1.carrito); 
+console.log(mensaje);
