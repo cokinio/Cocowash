@@ -134,11 +134,11 @@ let cantidades = [arrPantalon,arrRemera,arrBuzo];
 let singular = [" pantalon ", " remera ", " buzo "];
 let plural =[" pantalones ", " remeras ", " buzos "];
 
-console.log(cantidades[0][0].color);
-
-
 for (i=0; i<cantidadProductos; i++){
-    if (cantidades[i].length==1){
+    if (cantidades[i].length==0){
+        mensaje= mensaje+ cantidades[i].length + plural[i];
+    }
+    else if (cantidades[i].length==1){
         mensaje= mensaje+ cantidades[i].length + singular[i]+"de color "+ cantidades[i][0].color;
     }
     else{
