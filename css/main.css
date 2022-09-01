@@ -136,3 +136,15 @@ ul li {
 .marca {
   background-color: #019BDB;
   color: white; }
+
+#pedido {
+  background-color: blue;
+  color: white; }
+
+#carrito {
+  background-color: blue;
+  color: white;
+  display: block; }
+  #carrito li {
+    display: flex;
+    justify-content: center; }

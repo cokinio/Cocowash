@@ -39,16 +39,20 @@ class Cliente {
 	}
 }
 
-// const carrito = [
-//     {id:1, descripcion:"remera", precio:250, talle:"s", color:"rojo"},
-//     {id:1, descripcion:"remera", precio:250, talle:"l", color:"blanco"},
-//     {id:2, descripcion:"pantalon", precio:500, talle:"m", color:"negro"},
-//     {id:3, descripcion:"buzo", precio:700, talle:"s", color:"violeta"},
-//     {id:2, descripcion:"pantalon", precio:500, talle:"m", color:"azul"},
-//     {id:1, descripcion:"remera", precio:250, talle:"xl", color:"marron"},
-// ];
+function armoClienteDemo(){
+	const carrito = [
+		{id:1, descripcion:"remera", precio:250, talle:"s", color:"rojo"},
+		{id:1, descripcion:"remera", precio:250, talle:"l", color:"blanco"},
+		{id:2, descripcion:"pantalon", precio:500, talle:"m", color:"negro"},
+		{id:3, descripcion:"buzo", precio:700, talle:"s", color:"violeta"},
+		{id:2, descripcion:"pantalon", precio:500, talle:"m", color:"azul"},
+		{id:1, descripcion:"remera", precio:250, talle:"xl", color:"marron"},
+	];
+	
+	const cliente1 = new Cliente("pedro","gonzales",carrito);
+	return cliente1;
+}
 
-// const cliente1 = new Cliente("pedro","gonzales",carrito);
 
 // Defino las Funciones
 function esPantalon(prenda) {
@@ -68,7 +72,7 @@ function funTotal(carrito) {
 	return total;
 }
 
-function realizarPedido(){
+function realizarPedido(cliente1){
 	////consulto por remeras
 	
 	cantRemeras = parseInt(
@@ -124,9 +128,12 @@ function realizarPedido(){
 		const buzo1 = new Buzo(talle, color);
 		cliente1.carrito.push(buzo1);
 	}
+
+	return cliente1;
 }
 
-function escribirMensaje(cantidadProductos,cantidades,singular,plural){
+function escribirMensaje(cliente1,cantidadProductos,cantidades,singular,plural){
+
 	let mensaje ="El cliente " + cliente1.nombre + " " + cliente1.apellido + " desea lavar ";
 	for (i = 0; i < cantidadProductos; i++) {
 		if (cantidades[i].length == 0) {
@@ -158,24 +165,73 @@ function escribirMensaje(cantidadProductos,cantidades,singular,plural){
 		} else {
 			mensaje = mensaje + " ";
 		}
+		
+	}
+	mensaje = mensaje + "por un total de $" + funTotal(cliente1.carrito);
+	return mensaje;
+	}
+
+function escribirMensajeHtml(cliente1,cantidadProductos,cantidades,singular,plural,carritoHtml){
+	
+	linea=[];
+	let mensaje="";
+	for (i = 0; i < cantidadProductos; i++) {
+		let mensaje="";
+		if (cantidades[i].length == 0) {
+			mensaje = mensaje + cantidades[i].length + plural[i];
+		} else if (cantidades[i].length == 1) {
+			mensaje =
+				mensaje +
+				cantidades[i].length +
+				singular[i] +
+				"de color " +
+				cantidades[i][0].color;
+		} else {
+			mensaje = mensaje + cantidades[i].length + plural[i] + "de colores ";
+			for (j = 0; j < cantidades[i].length; j++) {
+				if (j < cantidades[i].length - 2) {
+					mensaje = mensaje + cantidades[i][j].color + ", ";
+				} else if (j < cantidades[i].length - 1) {
+					mensaje = mensaje + cantidades[i][j].color + " y ";
+				} else {
+					mensaje = mensaje + cantidades[i][j].color;
+				}
+			}
+		}
+		linea[i]=mensaje;
+		console.log(mensaje);
 	}
 	
-	mensaje = mensaje + "por un total de $" + funTotal(cliente1.carrito);
-	alert(mensaje);
-	}
+	let texto = `<p>El pedido de ${cliente1.nombre} ${cliente1.apellido} es:</p>
+				<ul>
+					<li>${linea[0]}</li>
+					<li>${linea[1]}</li>
+					<li>${linea[2]}</li>
+				</ul>
+				<p>Por un monto total de ${funTotal(cliente1.carrito)}`;
+
+	carritoHtml.innerHTML =texto;
+}
 
 
-
+/// inicio de programa
 alert(
 	"En este programa le cotizaremos las prendas que desea lavar en base a su descripción"
 );
 
-let nombre = prompt("Ingrese su nombre");
-let apellido = prompt("Ingrese su apellido");
-let carrito = [];
-const cliente1 = new Cliente(nombre, apellido, carrito);
+function obtengoDatos(){
+	let nombre = prompt("Ingrese su nombre");
+	let apellido = prompt("Ingrese su apellido");
+	let carrito = [];
+	let cliente1 = new Cliente(nombre, apellido, carrito);
+	cliente1=realizarPedido(cliente1);
+	return cliente1;
+}
 
-realizarPedido();
+//inico de programa
+
+//const cliente1=obtengoDatos();
+const cliente1=armoClienteDemo();
 let arrPantalon = cliente1.carrito.filter(esPantalon);
 let arrRemera = cliente1.carrito.filter(esRemera);
 let arrBuzo = cliente1.carrito.filter(esBuzo);
@@ -184,5 +240,13 @@ let cantidades = [arrPantalon, arrRemera, arrBuzo],
 	singular = [" pantalon ", " remera ", " buzo "],
 	plural = [" pantalones ", " remeras ", " buzos "];
 
-escribirMensaje(cantidadProductos,cantidades,singular,plural);
+
+mensaje1=escribirMensaje(cliente1,cantidadProductos,cantidades,singular,plural);
+alert(mensaje1);
+
+let carritoHtml = document.querySelector("#carrito");
+escribirMensajeHtml(cliente1,cantidadProductos,cantidades,singular,plural,carritoHtml);
+
+
+
 

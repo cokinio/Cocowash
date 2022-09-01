@@ -88,3 +88,18 @@
     background-color: $celeste2;
     color: $white;
 }
+
+#pedido{
+    background-color: blue;
+    color: $white;
+}
+
+#carrito{
+    background-color: blue;
+    color: $white;
+    display:block;
+    li{
+        display: flex;
+        justify-content: center;
+    }
+}
