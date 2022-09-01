@@ -230,8 +230,8 @@ function obtengoDatos(){
 
 //inico de programa
 
-//const cliente1=obtengoDatos();
-const cliente1=armoClienteDemo();
+const cliente1=obtengoDatos();
+//const cliente1=armoClienteDemo();
 let arrPantalon = cliente1.carrito.filter(esPantalon);
 let arrRemera = cliente1.carrito.filter(esRemera);
 let arrBuzo = cliente1.carrito.filter(esBuzo);
