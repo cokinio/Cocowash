@@ -92,6 +92,13 @@
 #pedido{
     background-color: blue;
     color: $white;
+    display: block;
+    a{
+        @include texto($fontSecundary, $fontMd,$white, $fontLg, $fontBold);
+        text-decoration: none;
+        display: flex;
+        justify-content: center;
+    }
 }
 
 #carrito{

@@ -1,0 +1,7 @@
+#formulario{
+    @include texto($fontSecundary, $fontXxs,$negro, $fontSm2, $fontLigth);
+    }
+
+.bg-amarillo{
+        background-color: $grisOscuro;
+    }

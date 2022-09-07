@@ -139,7 +139,17 @@ ul li {
 
 #pedido {
   background-color: blue;
-  color: white; }
+  color: white;
+  display: block; }
+  #pedido a {
+    color: white;
+    font-family: "Roboto Condensed", sans-serif;
+    font-size: 3rem;
+    line-height: 3.8rem;
+    font-weight: 700;
+    text-decoration: none;
+    display: flex;
+    justify-content: center; }
 
 #carrito {
   background-color: blue;
@@ -148,3 +158,13 @@ ul li {
   #carrito li {
     display: flex;
     justify-content: center; }
+
+#formulario {
+  color: #0d0d0d;
+  font-family: "Roboto Condensed", sans-serif;
+  font-size: 1rem;
+  line-height: 2.2rem;
+  font-weight: 300; }
+
+.bg-amarillo {
+  background-color: #e6e4e4; }
