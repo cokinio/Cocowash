@@ -285,14 +285,14 @@ function datosDelForm(event){
 	let apellido =  formulario.apellido.value;
 	let email = formulario.mail1.value;
 	let carrito = [];
-	cliente1 = new Cliente(nombre, apellido, carrito,email);
+	let cliente1 = new Cliente(nombre, apellido, carrito,email);
 	let cantRemeras =  formulario.cantRemeras.value;
 	let cantPantalones =  formulario.cantPantalon.value;
 	let cantBuzos =  formulario.cantBuzo.value;
 	let cantidades = [cantRemeras, cantPantalones,cantBuzos];
 	let tipos = ["Remera","Pantalon","Buzo"];
 	let objeto1;
-
+	console.log("entre")
 	for (i=0; i<tipos.length; i++){
 		for (j=1; j<=cantidades[i]; j++){
 			let talle=  document.querySelector(`#talle${tipos[i]}${j}`).value;
@@ -314,6 +314,7 @@ function datosDelForm(event){
 			
 		}
 	}
+	console.log(cliente1)
 	let arrPantalon = cliente1.carrito.filter(esPantalon);
 	console.log(arrPantalon)
 	let arrRemera = cliente1.carrito.filter(esRemera);
