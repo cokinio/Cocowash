@@ -32,7 +32,7 @@ class Buzo {
 }
 
 class Cliente {
-	constructor(nombre, apellido,carrito, email="") {
+	constructor(nombre, apellido, carrito, email = "") {
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.email = email;
@@ -40,20 +40,19 @@ class Cliente {
 	}
 }
 
-function armoClienteDemo(){
+function armoClienteDemo() {
 	const carrito = [
-		{id:1, descripcion:"remera", precio:250, talle:"s", color:"rojo"},
-		{id:1, descripcion:"remera", precio:250, talle:"l", color:"blanco"},
-		{id:2, descripcion:"pantalon", precio:500, talle:"m", color:"negro"},
-		{id:3, descripcion:"buzo", precio:700, talle:"s", color:"violeta"},
-		{id:2, descripcion:"pantalon", precio:500, talle:"m", color:"azul"},
-		{id:1, descripcion:"remera", precio:250, talle:"xl", color:"marron"},
+		{ id: 1, descripcion: "remera", precio: 250, talle: "s", color: "rojo" },
+		{ id: 1, descripcion: "remera", precio: 250, talle: "l", color: "blanco" },
+		{ id: 2, descripcion: "pantalon", precio: 500, talle: "m", color: "negro" },
+		{ id: 3, descripcion: "buzo", precio: 700, talle: "s", color: "violeta" },
+		{ id: 2, descripcion: "pantalon", precio: 500, talle: "m", color: "azul" },
+		{ id: 1, descripcion: "remera", precio: 250, talle: "xl", color: "marron" },
 	];
-	
-	const cliente1 = new Cliente("pedro","gonzales",carrito);
+
+	const cliente1 = new Cliente("pedro", "gonzales", carrito);
 	return cliente1;
 }
-
 
 // Defino las Funciones
 function esPantalon(prenda) {
@@ -73,13 +72,13 @@ function funTotal(carrito) {
 	return total;
 }
 
-function realizarPedido(cliente1){
+function realizarPedido(cliente1) {
 	////consulto por remeras
-	
+
 	cantRemeras = parseInt(
 		prompt("Ingrese la cantidad de remeras que desea lavar")
 	);
-	
+
 	for (i = 0; i < cantRemeras; i++) {
 		talle = prompt(
 			"Ingrese el talle de la remera. Puede ser small [s], medium [m] o large [l]. Deberá utilizar la letra indicada dentro de los corchetes para indicar el talle"
@@ -93,12 +92,12 @@ function realizarPedido(cliente1){
 		const remera1 = new Remera(talle, color);
 		cliente1.carrito.push(remera1);
 	}
-	
+
 	//consulto por pantalones
 	cantPantalones = parseInt(
 		prompt("Ingrese la cantidad de pantalones que desea lavar")
 	);
-	
+
 	for (i = 0; i < cantPantalones; i++) {
 		talle = prompt(
 			"Ingrese el talle del pantalon. Puede ser small [s], medium [m] o large [l]. Deberá utilizar la letra indicada dentro de los corchetes para indicar el talle"
@@ -112,10 +111,10 @@ function realizarPedido(cliente1){
 		const pantalon1 = new Pantalon(talle, color);
 		cliente1.carrito.push(pantalon1);
 	}
-	
+
 	//consulto por Buzos
 	cantBuzos = parseInt(prompt("Ingrese la cantidad de buzos que desea lavar"));
-	
+
 	for (i = 0; i < cantBuzos; i++) {
 		talle = prompt(
 			"Ingrese el talle del buzo. Puede ser small [s], medium [m] o large [l]. Deberá utilizar la letra indicada dentro de los corchetes para indicar el talle"
@@ -133,9 +132,15 @@ function realizarPedido(cliente1){
 	return cliente1;
 }
 
-function escribirMensaje(cliente1,cantidadProductos,cantidades,singular,plural){
-
-	let mensaje ="El cliente " + cliente1.nombre + " " + cliente1.apellido + " desea lavar ";
+function escribirMensaje(
+	cliente1,
+	cantidadProductos,
+	cantidades,
+	singular,
+	plural
+) {
+	let mensaje =
+		"El cliente " + cliente1.nombre + " " + cliente1.apellido + " desea lavar ";
 	for (i = 0; i < cantidadProductos; i++) {
 		if (cantidades[i].length == 0) {
 			mensaje = mensaje + cantidades[i].length + plural[i];
@@ -166,18 +171,23 @@ function escribirMensaje(cliente1,cantidadProductos,cantidades,singular,plural){
 		} else {
 			mensaje = mensaje + " ";
 		}
-		
 	}
 	mensaje = mensaje + "por un total de $" + funTotal(cliente1.carrito);
 	return mensaje;
-	}
+}
 
-function escribirMensajeHtml(cliente1,cantidadProductos,cantidades,singular,plural,carritoHtml){
-	
-	linea=[];
-	let mensaje="";
+function escribirMensajeHtml(
+	cliente1,
+	cantidadProductos,
+	cantidades,
+	singular,
+	plural,
+	carritoHtml
+) {
+	linea = [];
+	let mensaje = "";
 	for (i = 0; i < cantidadProductos; i++) {
-		let mensaje="";
+		let mensaje = "";
 		if (cantidades[i].length == 0) {
 			mensaje = mensaje + cantidades[i].length + plural[i];
 		} else if (cantidades[i].length == 1) {
@@ -199,10 +209,10 @@ function escribirMensajeHtml(cliente1,cantidadProductos,cantidades,singular,plur
 				}
 			}
 		}
-		linea[i]=mensaje;
+		linea[i] = mensaje;
 		console.log(mensaje);
 	}
-	
+
 	let texto = `<p>El pedido de ${cliente1.nombre} ${cliente1.apellido} es:</p>
 				<ul>
 					<li>${linea[0]}</li>
@@ -211,31 +221,29 @@ function escribirMensajeHtml(cliente1,cantidadProductos,cantidades,singular,plur
 				</ul>
 				<p>Por un monto total de ${funTotal(cliente1.carrito)}`;
 
-	carritoHtml.innerHTML =texto;
+	carritoHtml.innerHTML = texto;
 }
-
 
 /// inicio de programa
 // alert(
 // 	"En este programa le cotizaremos las prendas que desea lavar en base a su descripción"
 // );
 
-function obtengoDatos(){
+function obtengoDatos() {
 	let nombre = prompt("Ingrese su nombre");
 	let apellido = prompt("Ingrese su apellido");
 	let carrito = [];
 	let cliente1 = new Cliente(nombre, apellido, carrito);
-	cliente1=realizarPedido(cliente1);
+	cliente1 = realizarPedido(cliente1);
 	return cliente1;
 }
 
-function sumaryRestar(selector,id,tipo){
-
-	if (selector==0){
+function sumaryRestar(selector, id, tipo) {
+	if (selector == 0) {
 		let cant = document.querySelector(id).value;
 		cant++;
 		document.querySelector(id).value = cant;
-		let texto= `<div class="row" id=${tipo}${cant}>
+		let texto = `<div class="row" id=${tipo}${cant}>
 				<div class="col-md-3">
 					<label for="talle" class="form-label">Talle</label>
 				</div>
@@ -263,40 +271,38 @@ function sumaryRestar(selector,id,tipo){
 						<option value="otro">Otro</option>
 					</select>
 				</div>
-			</div>`	;
-		let division=`#desplegable${tipo}`;
-		document.querySelector(division).innerHTML+=texto;
-	}
-	else{
+			</div>`;
+		let division = `#desplegable${tipo}`;
+		document.querySelector(division).innerHTML += texto;
+	} else {
 		let cant = document.querySelector(id).value;
-		if (cant>0){
+		if (cant > 0) {
 			cant--;
 			document.querySelector(id).value = cant;
-			let desplegable=document.querySelector(`#desplegable${tipo}`);
-			desplegable.removeChild(desplegable.lastChild);;
+			let desplegable = document.querySelector(`#desplegable${tipo}`);
+			desplegable.removeChild(desplegable.lastChild);
 		}
 	}
 }
 
-function datosDelForm(event){
+function datosDelForm(event) {
 	event.preventDefault();
 	let formulario = document.querySelector("#formulario");
 	let nombre = formulario.nombre.value;
-	let apellido =  formulario.apellido.value;
+	let apellido = formulario.apellido.value;
 	let email = formulario.mail1.value;
 	let carrito = [];
-	let cliente1 = new Cliente(nombre, apellido, carrito,email);
-	let cantRemeras =  formulario.cantRemeras.value;
-	let cantPantalones =  formulario.cantPantalon.value;
-	let cantBuzos =  formulario.cantBuzo.value;
-	let cantidades = [cantRemeras, cantPantalones,cantBuzos];
-	let tipos = ["Remera","Pantalon","Buzo"];
+	let cliente1 = new Cliente(nombre, apellido, carrito, email);
+	let cantRemeras = formulario.cantRemeras.value;
+	let cantPantalones = formulario.cantPantalon.value;
+	let cantBuzos = formulario.cantBuzo.value;
+	let cantidades = [cantRemeras, cantPantalones, cantBuzos];
+	let tipos = ["Remera", "Pantalon", "Buzo"];
 	let objeto1;
-	console.log("entre")
-	for (i=0; i<tipos.length; i++){
-		for (j=1; j<=cantidades[i]; j++){
-			let talle=  document.querySelector(`#talle${tipos[i]}${j}`).value;
-			let color=  document.querySelector(`#color${tipos[i]}${j}`).value;
+	for (i = 0; i < tipos.length; i++) {
+		for (j = 1; j <= cantidades[i]; j++) {
+			let talle = document.querySelector(`#talle${tipos[i]}${j}`).value;
+			let color = document.querySelector(`#color${tipos[i]}${j}`).value;
 			switch (i) {
 				case 0:
 					objeto1 = new Remera(talle, color);
@@ -311,25 +317,40 @@ function datosDelForm(event){
 					cliente1.carrito.push(objeto1);
 					break;
 			}
-			
 		}
 	}
-	console.log(cliente1)
+	console.log(cliente1);
 	let arrPantalon = cliente1.carrito.filter(esPantalon);
-	console.log(arrPantalon)
 	let arrRemera = cliente1.carrito.filter(esRemera);
 	let arrBuzo = cliente1.carrito.filter(esBuzo);
 	const cantidadProductos = 3;
-	let cantidades1 = [arrPantalon, arrRemera, arrBuzo],
-	singular = [" pantalon ", " remera ", " buzo "],
-	plural = [" pantalones ", " remeras ", " buzos "];
-	let carritoHtml = document.querySelector("#carrito");
-	escribirMensajeHtml(cliente1,cantidadProductos,cantidades1,singular,plural,carritoHtml);
+	modal.style.display = "block";
+	let cantidades1 = [arrPantalon, arrRemera, arrBuzo];
+	let cantidadesEnJson=JSON.stringify(cantidades1);
+	localStorage.setItem("cantidades",cantidadesEnJson );
+	let clienteEnJson=JSON.stringify(cliente1);
+	localStorage.setItem("cliente",clienteEnJson );
+	escriboModal();
 }
 
+function escriboModal(){
+	const cantidadProductos = 3;
+	singular = [" pantalon ", " remera ", " buzo "],
+	plural = [" pantalones ", " remeras ", " buzos "];
+	let carritoHtml = document.querySelector("#myModal div p");
+	let cantidades= JSON.parse(localStorage.getItem("cantidades"));
+	let cliente1= JSON.parse(localStorage.getItem("cliente"));
+	escribirMensajeHtml(cliente1,cantidadProductos,cantidades,singular,plural,carritoHtml);
+	}
 
-
-//inico de programa
+function borrarHtml(){
+	let tipo=["Remera","Pantalon","Buzo"];
+	let division;
+	for (i=0; i<tipo.length;i++){
+		division = `#desplegable${tipo[i]}`;
+		document.querySelector(division).innerHTML ="";
+	}
+}
 
 // let cliente1;
 //const cliente1=obtengoDatos();
@@ -345,30 +366,50 @@ function datosDelForm(event){
 // 	plural = [" pantalones ", " remeras ", " buzos "];
 
 let botonMasRemera = document.getElementById("botonMasRemera");
-botonMasRemera.addEventListener("click", function(){sumaryRestar(0,"#cantRemeras","Remera")});
+botonMasRemera.addEventListener("click", function () {
+	sumaryRestar(0, "#cantRemeras", "Remera");
+});
 let botonMenosRemera = document.getElementById("botonMenosRemera");
-botonMenosRemera.addEventListener("click", function(){sumaryRestar(1,"#cantRemeras","Remera")});
+botonMenosRemera.addEventListener("click", function () {
+	sumaryRestar(1, "#cantRemeras", "Remera");
+});
 
 let botonMasPantalon = document.getElementById("botonMasPantalon");
-botonMasPantalon.addEventListener("click", function(){sumaryRestar(0,"#cantPantalon","Pantalon")});
+botonMasPantalon.addEventListener("click", function () {
+	sumaryRestar(0, "#cantPantalon", "Pantalon");
+});
 let botonMenosPantalon = document.getElementById("botonMenosPantalon");
-botonMenosPantalon.addEventListener("click", function(){sumaryRestar(1,"#cantPantalon","Pantalon")});
-
+botonMenosPantalon.addEventListener("click", function () {
+	sumaryRestar(1, "#cantPantalon", "Pantalon");
+});
 
 let botonMasBuzo = document.getElementById("botonMasBuzo");
-botonMasBuzo.addEventListener("click", function(){sumaryRestar(0,"#cantBuzo","Buzo")});
+botonMasBuzo.addEventListener("click", function () {
+	sumaryRestar(0, "#cantBuzo", "Buzo");
+});
 let botonMenosBuzo = document.getElementById("botonMenosBuzo");
-botonMenosBuzo.addEventListener("click", function(){sumaryRestar(1,"#cantBuzo","Buzo")});
+botonMenosBuzo.addEventListener("click", function () {
+	sumaryRestar(1, "#cantBuzo", "Buzo");
+});
 
+let modal = document.getElementById("myModal");
+let span = document.getElementsByClassName("close")[0];
+
+span.onclick = function () {
+	modal.style.display = "none";
+};
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function (event) {
+	if (event.target == modal) {
+		modal.style.display = "none";
+	}
+};
 // let botonSubmit = document.getElementById("submit");
 // botonSubmit.addEventListener("click", cliente1=datosDelForm());
 
 // mensaje1=escribirMensaje(cliente1,cantidadProductos,cantidades,singular,plural);
 // alert(mensaje1);
 
-// let carritoHtml = document.querySelector("#carrito");
-// escribirMensajeHtml(cliente1,cantidadProductos,cantidades,singular,plural,carritoHtml);
-
-
-
+//let carritoHtml = document.querySelector("#carrito");
 

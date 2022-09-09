@@ -23,92 +23,155 @@
 				<div class="col">2914500000</div>
 			</div>
 		</div>
-        <header>
-            <h1 class="marca">Realice su pedido</h1>
-        </header>
-        <main>
-            <form class="container" id="formulario">
-                <div class="row">
-                    <div class="col">
-                    <label for="nombre" class="form-label">Nombre</label>
-                        <input type="text" class="form-control" id="nombre" placeholder="Juan" aria-label="First name">
-                    </div>
-                    <div class="col">
-                        <label for="apellido" class="form-label">Apellido</label>
-                        <input type="text" class="form-control" id="apellido" placeholder="Perez" aria-label="Last name">
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Dirección de email</label>
-                    <input type="email" class="form-control" id="mail1">
-                </div>
-                
-                <!-- remeras -->
-                <div class="row">
-                    <div class="col-md-6">
-                        <!-- <p>Cantidad de remeras que desea lavar</p> -->
-                        <label for="cantRemeras" >Cantidad de remeras que desea lavar</label>
-                    </div>
-                    <div class="col-md-1">
-                        <button type="button" class="btn btn-lg bg-amarillo" id="botonMasRemera">+</button>
-                    </div>
-                    <div class="col-md-4">
-                        <input type="number" class="form-control" id="cantRemeras">
-                    </div>
-                    <div class="col-md-1">
-                        <button type="button" class="btn btn-lg bg-amarillo" id="botonMenosRemera">-</button>
-                    </div>
-                </div>
-                    <!-- desplegable -->
-                <div id="desplegableRemera"> </div>
+		<header>
+			<h1 class="marca">Realice su pedido</h1>
+		</header>
+		<main>
+			<!-- The Modal -->
+			<div id="myModal" class="modal">
+				<!-- Modal content -->
+				<div class="modal-content">
+					<span class="close">&times;</span>
+					<p>Some text in the Modal..</p>
+				</div>
+			</div>
 
-                <!-- pantalon -->
-                <div class="row">
-                    <div class="col-md-6">
-                        <label for="cantPantalon" >Cantidad de pantalones que desea lavar</label>
-                    </div>
-                    <div class="col-md-1">
-                        <button type="button" class="btn btn-lg bg-amarillo" id="botonMasPantalon">+</button>
-                    </div>
-                    <div class="col-md-4">
-                        <input type="number" class="form-control" id="cantPantalon">
-                    </div>
-                    <div class="col-md-1">
-                        <button type="button" class="btn btn-lg bg-amarillo" id="botonMenosPantalon">-</button>
-                    </div>
-                </div>
-                    <!-- desplegable -->
-                <div id="desplegablePantalon"> </div>
-                
-                <!-- buzo -->
-                <div class="row">
-                    <div class="col-md-6">
-                        <label for="cantBuzo" >Cantidad de buzos que desea lavar</label>
-                    </div>
-                    <div class="col-md-1">
-                        <button type="button" class="btn btn-lg bg-amarillo" id="botonMasBuzo">+</button>
-                    </div>
-                    <div class="col-md-4">
-                        <input type="number" class="form-control" id="cantBuzo">
-                    </div>
-                    <div class="col-md-1">
-                        <button type="button" class="btn btn-lg bg-amarillo" id="botonMenosBuzo">-</button>
-                    </div>
-                </div>
-                    <!-- desplegable -->
-                <div id="desplegableBuzo"> </div>
+			<form class="container" id="formulario">
+				<div class="row">
+					<div class="col">
+						<label for="nombre" class="form-label">Nombre</label>
+						<input
+							type="text"
+							class="form-control"
+							id="nombre"
+							placeholder="Juan"
+							aria-label="First name"
+						/>
+					</div>
+					<div class="col">
+						<label for="apellido" class="form-label">Apellido</label>
+						<input
+							type="text"
+							class="form-control"
+							id="apellido"
+							placeholder="Perez"
+							aria-label="Last name"
+						/>
+					</div>
+				</div>
+				<div class="mb-3">
+					<label for="exampleInputEmail1" class="form-label"
+						>Dirección de email</label
+					>
+					<input type="email" class="form-control" id="mail1" />
+				</div>
 
+				<!-- remeras -->
+				<div class="row">
+					<div class="col-md-6">
+						<!-- <p>Cantidad de remeras que desea lavar</p> -->
+						<label for="cantRemeras">Cantidad de remeras que desea lavar</label>
+					</div>
+					<div class="col-md-1">
+						<button
+							type="button"
+							class="btn btn-lg bg-gris"
+							id="botonMasRemera"
+						>
+							+
+						</button>
+					</div>
+					<div class="col-md-4">
+						<input type="number" class="form-control" id="cantRemeras" />
+					</div>
+					<div class="col-md-1">
+						<button
+							type="button"
+							class="btn btn-lg bg-gris"
+							id="botonMenosRemera"
+						>
+							-
+						</button>
+					</div>
+				</div>
+				<!-- desplegable -->
+				<div id="desplegableRemera"></div>
 
-                <div class="text-center">
-                    <button type="reset" class="btn btn-lg bg-amarillo">Cancelar</button>
-                    <button type="submit" class="btn btn-lg bg-amarillo" id="submit" onclick="datosDelForm(event)">Enviar</button>
-                </div>
-            </form>
-            <div id="carrito">
+				<!-- pantalon -->
+				<div class="row">
+					<div class="col-md-6">
+						<label for="cantPantalon"
+							>Cantidad de pantalones que desea lavar</label
+						>
+					</div>
+					<div class="col-md-1">
+						<button
+							type="button"
+							class="btn btn-lg bg-gris"
+							id="botonMasPantalon"
+						>
+							+
+						</button>
+					</div>
+					<div class="col-md-4">
+						<input type="number" class="form-control" id="cantPantalon" />
+					</div>
+					<div class="col-md-1">
+						<button
+							type="button"
+							class="btn btn-lg bg-gris"
+							id="botonMenosPantalon"
+						>
+							-
+						</button>
+					</div>
+				</div>
+				<!-- desplegable -->
+				<div id="desplegablePantalon"></div>
 
-            </div>
-        </main>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/calculo.js"></script>  
-    </body>
+				<!-- buzo -->
+				<div class="row">
+					<div class="col-md-6">
+						<label for="cantBuzo">Cantidad de buzos que desea lavar</label>
+					</div>
+					<div class="col-md-1">
+						<button type="button" class="btn btn-lg bg-gris" id="botonMasBuzo">
+							+
+						</button>
+					</div>
+					<div class="col-md-4">
+						<input type="number" class="form-control" id="cantBuzo" />
+					</div>
+					<div class="col-md-1">
+						<button
+							type="button"
+							class="btn btn-lg bg-gris"
+							id="botonMenosBuzo"
+						>
+							-
+						</button>
+					</div>
+				</div>
+				<!-- desplegable -->
+				<div id="desplegableBuzo"></div>
+
+				<div class="text-center">
+					<button type="reset" class="btn btn-lg bg-gris" onclick="borrarHtml()">Cancelar</button>
+					<button
+						type="submit"
+						class="btn btn-lg bg-gris"
+						id="submit"
+						data-toggle="modal"
+						data-target="#ModalLoginForm"
+						onclick="datosDelForm(event)"
+					>
+						Enviar
+					</button>
+				</div>
+			</form>
+			<div id="carrito"></div>
+		</main>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/calculo.js"></script>
+	</body>
 </html>
