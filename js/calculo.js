@@ -40,6 +40,7 @@ class Cliente {
 	}
 }
 
+//funcion utlizada para crear un carrito de demostracion sin solicitar datos al usuario
 function armoClienteDemo() {
 	const carrito = [
 		{ id: 1, descripcion: "remera", precio: 250, talle: "s", color: "rojo" },
@@ -72,6 +73,17 @@ function funTotal(carrito) {
 	return total;
 }
 
+//funcion utilizada para crear cliente mediante prompt
+function obtengoDatos() {
+	let nombre = prompt("Ingrese su nombre");
+	let apellido = prompt("Ingrese su apellido");
+	let carrito = [];
+	let cliente1 = new Cliente(nombre, apellido, carrito);
+	cliente1 = realizarPedido(cliente1);
+	return cliente1;
+}
+
+// funcion utilizada para armar carrito mediante prompt
 function realizarPedido(cliente1) {
 	////consulto por remeras
 
@@ -132,6 +144,7 @@ function realizarPedido(cliente1) {
 	return cliente1;
 }
 
+//devuelve mensaje
 function escribirMensaje(
 	cliente1,
 	cantidadProductos,
@@ -176,6 +189,7 @@ function escribirMensaje(
 	return mensaje;
 }
 
+// escribe mensaje en inner html
 function escribirMensajeHtml(
 	cliente1,
 	cantidadProductos,
@@ -224,20 +238,7 @@ function escribirMensajeHtml(
 	carritoHtml.innerHTML = texto;
 }
 
-/// inicio de programa
-// alert(
-// 	"En este programa le cotizaremos las prendas que desea lavar en base a su descripción"
-// );
-
-function obtengoDatos() {
-	let nombre = prompt("Ingrese su nombre");
-	let apellido = prompt("Ingrese su apellido");
-	let carrito = [];
-	let cliente1 = new Cliente(nombre, apellido, carrito);
-	cliente1 = realizarPedido(cliente1);
-	return cliente1;
-}
-
+//agrego selects al form en funcion de las cantidades que elige el usuario
 function sumaryRestar(selector, id, tipo) {
 	if (selector == 0) {
 		let cant = document.querySelector(id).value;
@@ -285,6 +286,7 @@ function sumaryRestar(selector, id, tipo) {
 	}
 }
 
+//armo carrito con los datos del html
 function datosDelForm(event) {
 	event.preventDefault();
 	let formulario = document.querySelector("#formulario");
@@ -352,18 +354,7 @@ function borrarHtml(){
 	}
 }
 
-// let cliente1;
-//const cliente1=obtengoDatos();
-//const cliente1=armoClienteDemo();
-
-// let arrPantalon = cliente1.carrito.filter(esPantalon);
-// console.log(arrPantalon)
-// let arrRemera = cliente1.carrito.filter(esRemera);
-// let arrBuzo = cliente1.carrito.filter(esBuzo);
-// const cantidadProductos = 3;
-// let cantidades = [arrPantalon, arrRemera, arrBuzo],
-// 	singular = [" pantalon ", " remera ", " buzo "],
-// 	plural = [" pantalones ", " remeras ", " buzos "];
+// miro eventos de botones
 
 let botonMasRemera = document.getElementById("botonMasRemera");
 botonMasRemera.addEventListener("click", function () {
@@ -399,17 +390,11 @@ span.onclick = function () {
 	modal.style.display = "none";
 };
 
-// When the user clicks anywhere outside of the modal, close it
+// cierro modal cuando el usuario clickea dentro del cuadro
 window.onclick = function (event) {
 	if (event.target == modal) {
 		modal.style.display = "none";
 	}
 };
-// let botonSubmit = document.getElementById("submit");
-// botonSubmit.addEventListener("click", cliente1=datosDelForm());
 
-// mensaje1=escribirMensaje(cliente1,cantidadProductos,cantidades,singular,plural);
-// alert(mensaje1);
-
-//let carritoHtml = document.querySelector("#carrito");
 
