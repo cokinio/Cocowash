@@ -33,11 +33,20 @@ class Buzo {
 }
 
 class Cliente {
-	constructor(nombre, apellido, carrito, email = "") {
+	constructor(
+		nombre,
+		apellido,
+		carrito,
+		email = "",
+		fechaPedido = "",
+		fechaQuiereLavar = ""
+	) {
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.email = email;
 		this.carrito = carrito;
+		this.fechaPedido = fechaPedido;
+		this.fechaQuiereLavar = fechaQuiereLavar;
 	}
 }
 //////////////////////////////////////////// constantes - Defino tipos de prendas//////////////////////////
@@ -49,23 +58,25 @@ const plural = [" pantalones ", " remeras ", " buzos "];
 
 //////////////////////////////////////////Defino las Funciones//////////////////////////////////////////
 
-let esPantalon = (prenda) => {return prenda.descripcion === "pantalon";}
+let esPantalon = (prenda) => {
+	return prenda.descripcion === "pantalon";
+};
 
-let esRemera = (prenda) => { return prenda.descripcion === "remera"}
+let esRemera = (prenda) => {
+	return prenda.descripcion === "remera";
+};
 
-let esBuzo = (prenda) => { return prenda.descripcion === "buzo"}
+let esBuzo = (prenda) => {
+	return prenda.descripcion === "buzo";
+};
 
 let funTotal = (carrito) => {
 	const total = carrito.reduce((acc, el) => acc + el.precio, 0);
 	return total;
-}
+};
 
 // escribe mensaje en inner html
-function escribirMensajeHtml(
-	cliente1,
-	cantidades,
-	carritoHtml
-) {
+function escribirMensajeHtml(cliente1, cantidades, carritoHtml) {
 	linea = [];
 	let mensaje = "";
 	for (i = 0; i < cantidadProductos; i++) {
@@ -92,18 +103,16 @@ function escribirMensajeHtml(
 			}
 		}
 		linea[i] = mensaje;
-		
 	}
 	//////// desestructuracion
-	let {nombre,apellido}=cliente1;
+	let { nombre, apellido } = cliente1;
 	let texto = `<p>Sr. ${nombre} ${apellido}, su pedido es:</p>
 				<ul>
 					<li>${linea[0]}</li>
 					<li>${linea[1]}</li>
 					<li>${linea[2]}</li>
 				</ul>
-				<p>Por un monto total de $ ${funTotal(cliente1.carrito)}
-				<div class="col-md-4">
+				<p>Por un monto total de $ ${funTotal(cliente1.carrito)}</p>
 						<button
 							type="button"
 							class="btn btn-lg bg-gris"
@@ -111,7 +120,7 @@ function escribirMensajeHtml(
 						>
 							Continuar con la compra
 						</button>
-					</div>
+				
 				
 				`;
 
@@ -201,66 +210,84 @@ function datosDelForm(event) {
 			}
 		}
 	}
-	//console.log(cliente1);
 	let arrPantalon = cliente1.carrito.filter(esPantalon);
 	let arrRemera = cliente1.carrito.filter(esRemera);
 	let arrBuzo = cliente1.carrito.filter(esBuzo);
 	modal.style.display = "block";
-	
-	let arreglocompleto=[...arrPantalon,...arrRemera,...arrBuzo];
+
+	let arreglocompleto = [...arrPantalon, ...arrRemera, ...arrBuzo];
 	console.log(arreglocompleto);
 	let cantidades1 = [arrPantalon, arrRemera, arrBuzo];
-	escriboModal(cantidades1,cliente1);
+	escriboModal(cantidades1, cliente1);
 }
 
-function escriboModal(cantidades,cliente1){
+function escriboModal(cantidades, cliente1) {
 	let carritoHtml = document.querySelector("#myModal div p");
-	escribirMensajeHtml(cliente1,cantidades,carritoHtml);
+	escribirMensajeHtml(cliente1, cantidades, carritoHtml);
 	////// creo listener del boton dentro del modal
 	let botonContinuarCompra = document.getElementById("botonContinuarCompra");
-	botonContinuarCompra.addEventListener("click", fechaLavado);
-	}
+	botonContinuarCompra.addEventListener("click", function(){fechaLavado(cliente1)});
+}
 
-function borrarHtml(){
-	let tipo=["Remera","Pantalon","Buzo"];
+function borrarHtml() {
+	let tipo = ["Remera", "Pantalon", "Buzo"];
 	let division;
-	for (i=0; i<tipo.length;i++){
+	for (i = 0; i < tipo.length; i++) {
 		division = `#desplegable${tipo[i]}`;
-		document.querySelector(division).innerHTML ="";
+		document.querySelector(division).innerHTML = "";
 	}
 }
-function fechaLavado(){
+function fechaLavado(cliente1) {
 	let modal = document.querySelector("#myModal div p");
 	borrarHtmlModal(modal);
-	console.log("creo q funca")
 	let texto = `<p class="mb-5">Ingrese fecha y hora en la que desea traer su ropa para su lavado</p>
 	<label for="selecFechaLavado">Fecha de lavado:</label>
 	<input type="datetime-local" id="selecFechaLavado" name="selecFechaLavado" />
-	<button type="button" class="btn btn-lg bg-gris mt-5" id="botonContinuarPedido">
-		Continuar con el pedido</button>`;
-	modal.innerHTML=texto;
+	<br><button type="button" class="btn btn-lg bg-gris mt-5" id="botonContinuarPedido">
+	Continuar con el pedido</button>`;
+	modal.innerHTML = texto;
 	let botonContinuarPedido = document.getElementById("botonContinuarPedido");
-	botonContinuarPedido.addEventListener("click", function(){
-		fecha= document.getElementById("selecFechaLavado").value;
-		programoLavado(fecha)
+	botonContinuarPedido.addEventListener("click", function () {
+		fecha = document.getElementById("selecFechaLavado").value;
+		programoLavado(fecha,cliente1);
 	});
 }
 
-function borrarHtmlModal(modal){
+function borrarHtmlModal(modal) {
 	modal.innerHTML = "";
 }
 
-function programoLavado(fecha){
-	const DateTime = luxon.DateTime
-	fechaLuxon=DateTime.fromISO(fecha);
-	let modal = document.querySelector("#myModal div p");
-	let fechaString=fechaLuxon.toLocaleString(DateTime.DATE_FULL);
-	let horaString=fechaLuxon.toLocaleString(DateTime.TIME_SIMPLE);
-	borrarHtmlModal(modal);
-	let texto = `<p class="mb-5">Usted debe traer su ropa a nuestro local el día 
-	${fechaString} a las ${horaString} horas</p>`;
-	modal.innerHTML=texto;
+function programoLavado(fecha1,cliente1) {
+	let fecha = fecha1 || null;
 
+	if (fecha === null) {
+		Swal.fire({
+			icon: "error",
+			title: "Oops...",
+			text: "La fecha no puede estar en blanco",
+		});
+	} else {
+		const DateTime = luxon.DateTime;
+		let fechaLuxon = DateTime.fromISO(fecha);
+		let fechaAhora = DateTime.now();
+		if (fechaAhora > fechaLuxon) {
+			Swal.fire({
+				icon: "error",
+				title: "Oops...",
+				text: "La fecha de para la que programa su lavado tiene que ser mayor a la fecha actual",
+			});
+		} else {
+			cliente1.fechaPedido=fechaAhora;
+			cliente1.fechaQuiereLavar=fechaLuxon;
+			let modal = document.querySelector("#myModal div p");
+			let fechaString = fechaLuxon.toLocaleString(DateTime.DATE_FULL);
+			let horaString = fechaLuxon.toLocaleString(DateTime.TIME_SIMPLE);
+			borrarHtmlModal(modal);
+			let texto = `<p class="mb-5">Usted debe traer su ropa a nuestro local el día 
+			${fechaString} a las ${horaString} horas</p>`;
+			modal.innerHTML = texto;
+		}
+	}
 }
 
 // /////////////////////////// eventos de botones ////////////////////////////////////////////////////////
@@ -305,5 +332,3 @@ window.onclick = function (event) {
 		modal.style.display = "none";
 	}
 };
-
-
