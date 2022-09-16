@@ -207,18 +207,14 @@ function datosDelForm(event) {
 	let arrRemera = cliente1.carrito.filter(esRemera);
 	let arrBuzo = cliente1.carrito.filter(esBuzo);
 	modal.style.display = "block";
+	let arreglocompleto=[...arrPantalon,...arrRemera,...arrBuzo];
+	console.log(arreglocompleto);
 	let cantidades1 = [arrPantalon, arrRemera, arrBuzo];
-	// let cantidadesEnJson=JSON.stringify(cantidades1);
-	// localStorage.setItem("cantidades",cantidadesEnJson );
-	// let clienteEnJson=JSON.stringify(cliente1);
-	// localStorage.setItem("cliente",clienteEnJson );
 	escriboModal(cantidades1,cliente1);
 }
 
 function escriboModal(cantidades,cliente1){
 	let carritoHtml = document.querySelector("#myModal div p");
-	// let cantidades= JSON.parse(localStorage.getItem("cantidades"));
-	// let cliente1= JSON.parse(localStorage.getItem("cliente"));
 	escribirMensajeHtml(cliente1,cantidades,carritoHtml);
 	let botonContinuarCompra = document.getElementById("botonContinuarCompra");
 	botonContinuarCompra.addEventListener("click", console.log("anda"));
