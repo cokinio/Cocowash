@@ -206,6 +206,9 @@ function datosDelForm(event) {
 	let arrRemera = cliente1.carrito.filter(esRemera);
 	let arrBuzo = cliente1.carrito.filter(esBuzo);
 	modal.style.display = "block";
+	
+	let arreglocompleto=[...arrPantalon,...arrRemera,...arrBuzo];
+	console.log(arreglocompleto);
 	let cantidades1 = [arrPantalon, arrRemera, arrBuzo];
 	escriboModal(cantidades1,cliente1);
 }
