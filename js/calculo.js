@@ -46,7 +46,6 @@ const tipos = ["Remera", "Pantalon", "Buzo"];
 const cantidadProductos = tipos.length;
 const singular = [" pantalon ", " remera ", " buzo "];
 const plural = [" pantalones ", " remeras ", " buzos "];
-console.log(...tipos)
 
 //////////////////////////////////////////Defino las Funciones//////////////////////////////////////////
 
@@ -97,7 +96,7 @@ function escribirMensajeHtml(
 	}
 	//////// desestructuracion
 	let {nombre,apellido}=cliente1;
-	let texto = `<p>Sr. ${nombre} ${apellido},su pedido es:</p>
+	let texto = `<p>Sr. ${nombre} ${apellido}, su pedido es:</p>
 				<ul>
 					<li>${linea[0]}</li>
 					<li>${linea[1]}</li>
@@ -202,13 +201,11 @@ function datosDelForm(event) {
 			}
 		}
 	}
-	console.log(cliente1);
+	//console.log(cliente1);
 	let arrPantalon = cliente1.carrito.filter(esPantalon);
 	let arrRemera = cliente1.carrito.filter(esRemera);
 	let arrBuzo = cliente1.carrito.filter(esBuzo);
 	modal.style.display = "block";
-	let arreglocompleto=[...arrPantalon,...arrRemera,...arrBuzo];
-	console.log(arreglocompleto);
 	let cantidades1 = [arrPantalon, arrRemera, arrBuzo];
 	escriboModal(cantidades1,cliente1);
 }
@@ -216,8 +213,9 @@ function datosDelForm(event) {
 function escriboModal(cantidades,cliente1){
 	let carritoHtml = document.querySelector("#myModal div p");
 	escribirMensajeHtml(cliente1,cantidades,carritoHtml);
+	////// creo listener del boton dentro del modal
 	let botonContinuarCompra = document.getElementById("botonContinuarCompra");
-	botonContinuarCompra.addEventListener("click", console.log("anda"));
+	botonContinuarCompra.addEventListener("click", fechaLavado);
 	}
 
 function borrarHtml(){
@@ -227,6 +225,39 @@ function borrarHtml(){
 		division = `#desplegable${tipo[i]}`;
 		document.querySelector(division).innerHTML ="";
 	}
+}
+function fechaLavado(){
+	let modal = document.querySelector("#myModal div p");
+	borrarHtmlModal(modal);
+	console.log("creo q funca")
+	let texto = `<p class="mb-5">Ingrese fecha y hora en la que desea traer su ropa para su lavado</p>
+	<label for="selecFechaLavado">Fecha de lavado:</label>
+	<input type="datetime-local" id="selecFechaLavado" name="selecFechaLavado" />
+	<button type="button" class="btn btn-lg bg-gris mt-5" id="botonContinuarPedido">
+		Continuar con el pedido</button>`;
+	modal.innerHTML=texto;
+	let botonContinuarPedido = document.getElementById("botonContinuarPedido");
+	botonContinuarPedido.addEventListener("click", function(){
+		fecha= document.getElementById("selecFechaLavado").value;
+		programoLavado(fecha)
+	});
+}
+
+function borrarHtmlModal(modal){
+	modal.innerHTML = "";
+}
+
+function programoLavado(fecha){
+	const DateTime = luxon.DateTime
+	fechaLuxon=DateTime.fromISO(fecha);
+	let modal = document.querySelector("#myModal div p");
+	let fechaString=fechaLuxon.toLocaleString(DateTime.DATE_FULL);
+	let horaString=fechaLuxon.toLocaleString(DateTime.TIME_SIMPLE);
+	borrarHtmlModal(modal);
+	let texto = `<p class="mb-5">Usted debe traer su ropa a nuestro local el día 
+	${fechaString} a las ${horaString} horas</p>`;
+	modal.innerHTML=texto;
+
 }
 
 // /////////////////////////// eventos de botones ////////////////////////////////////////////////////////
@@ -257,8 +288,6 @@ let botonMenosBuzo = document.getElementById("botonMenosBuzo");
 botonMenosBuzo.addEventListener("click", function () {
 	sumaryRestar(1, "#cantBuzo", "Buzo");
 });
-
-
 
 let modal = document.getElementById("myModal");
 let span = document.getElementsByClassName("close")[0];
