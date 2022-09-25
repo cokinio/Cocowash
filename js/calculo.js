@@ -75,58 +75,6 @@ let funTotal = (carrito) => {
 	return total;
 };
 
-// escribe mensaje en inner html
-function escribirMensajeHtml(cliente1, cantidades, carritoHtml) {
-	linea = [];
-	let mensaje = "";
-	for (i = 0; i < cantidadProductos; i++) {
-		let mensaje = "";
-		if (cantidades[i].length == 0) {
-			mensaje = mensaje + cantidades[i].length + plural[i];
-		} else if (cantidades[i].length == 1) {
-			mensaje =
-				mensaje +
-				cantidades[i].length +
-				singular[i] +
-				"de color " +
-				cantidades[i][0].color;
-		} else {
-			mensaje = mensaje + cantidades[i].length + plural[i] + "de colores ";
-			for (j = 0; j < cantidades[i].length; j++) {
-				if (j < cantidades[i].length - 2) {
-					mensaje = mensaje + cantidades[i][j].color + ", ";
-				} else if (j < cantidades[i].length - 1) {
-					mensaje = mensaje + cantidades[i][j].color + " y ";
-				} else {
-					mensaje = mensaje + cantidades[i][j].color;
-				}
-			}
-		}
-		linea[i] = mensaje;
-	}
-	//////// desestructuracion
-	let { nombre, apellido } = cliente1;
-	let texto = `<p>Sr. ${nombre} ${apellido}, su pedido es:</p>
-				<ul>
-					<li>${linea[0]}</li>
-					<li>${linea[1]}</li>
-					<li>${linea[2]}</li>
-				</ul>
-				<p>Por un monto total de $ ${funTotal(cliente1.carrito)}</p>
-						<button
-							type="button"
-							class="btn btn-lg bg-gris"
-							id="botonContinuarCompra"
-						>
-							Continuar con la compra
-						</button>
-				
-				
-				`;
-
-	carritoHtml.innerHTML = texto;
-}
-
 //agrego selects al form en funcion de las cantidades que elige el usuario
 function sumaryRestar(selector, id, tipo) {
 	if (selector == 0) {
@@ -223,10 +171,66 @@ function datosDelForm(event) {
 
 function escriboModal(cantidades, cliente1) {
 	let carritoHtml = document.querySelector("#myModal div p");
-	escribirMensajeHtml(cliente1, cantidades, carritoHtml);
-	////// creo listener del boton dentro del modal
-	let botonContinuarCompra = document.getElementById("botonContinuarCompra");
-	botonContinuarCompra.addEventListener("click", function(){fechaLavado(cliente1)});
+	getDolarBlue(cliente1, cantidades, carritoHtml);
+}
+
+// escribe mensaje en inner html
+function escribirMensajeHtml(cliente1, cantidades, carritoHtml, valorDolar) {
+	linea = [];
+	let mensaje = "";
+	for (i = 0; i < cantidadProductos; i++) {
+		let mensaje = "";
+		if (cantidades[i].length == 0) {
+			mensaje = mensaje + cantidades[i].length + plural[i];
+		} else if (cantidades[i].length == 1) {
+			mensaje =
+				mensaje +
+				cantidades[i].length +
+				singular[i] +
+				"de color " +
+				cantidades[i][0].color;
+		} else {
+			mensaje = mensaje + cantidades[i].length + plural[i] + "de colores ";
+			for (j = 0; j < cantidades[i].length; j++) {
+				if (j < cantidades[i].length - 2) {
+					mensaje = mensaje + cantidades[i][j].color + ", ";
+				} else if (j < cantidades[i].length - 1) {
+					mensaje = mensaje + cantidades[i][j].color + " y ";
+				} else {
+					mensaje = mensaje + cantidades[i][j].color;
+				}
+			}
+		}
+		linea[i] = mensaje;
+	}
+	//////// desestructuracion
+	let { nombre, apellido } = cliente1;
+	let texto = `<p>Sr. ${nombre} ${apellido}, su pedido es:</p>
+				<ul>
+					<li>${linea[0]}</li>
+					<li>${linea[1]}</li>
+					<li>${linea[2]}</li>
+				</ul>
+				<p>Por un monto total de pesos $ ${funTotal(cliente1.carrito)} o dólares estadounidenses U$S ${parseFloat(funTotal(cliente1.carrito)/valorDolar).toFixed(2)}</p>
+						<button
+							type="button"
+							class="btn btn-lg bg-gris"
+							id="botonContinuarCompra"
+						>
+							Continuar con la compra
+						</button>
+				
+				
+				`;
+
+	carritoHtml.innerHTML = texto;
+	escuchoBoton(cliente1);
+}
+
+function escuchoBoton(cliente1){
+////// creo listener del boton dentro del modal
+let botonContinuarCompra = document.getElementById("botonContinuarCompra");
+botonContinuarCompra.addEventListener("click", function(){fechaLavado(cliente1)});
 }
 
 function borrarHtml() {
@@ -289,6 +293,16 @@ function programoLavado(fecha1,cliente1) {
 		}
 	}
 }
+
+const getDolarBlue = (cliente1, cantidades, carritoHtml) =>{
+	fetch("https://api.bluelytics.com.ar/v2/latest")
+	.then((response) => response.json())
+	.then (respuestaJson => {
+		console.log(respuestaJson)
+		let valorDolarBlue= respuestaJson.blue.value_sell;
+		escribirMensajeHtml(cliente1, cantidades, carritoHtml,valorDolarBlue);})
+}
+
 
 // /////////////////////////// eventos de botones ////////////////////////////////////////////////////////
 
