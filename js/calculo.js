@@ -205,26 +205,45 @@ function escribirMensajeHtml(cliente1, cantidades, carritoHtml, valorDolar) {
 	}
 	//////// desestructuracion
 	let { nombre, apellido } = cliente1;
-	let texto = `<p>Sr. ${nombre} ${apellido}, su pedido es:</p>
-				<ul>
-					<li>${linea[0]}</li>
-					<li>${linea[1]}</li>
-					<li>${linea[2]}</li>
-				</ul>
-				<p>Por un monto total de pesos $ ${funTotal(cliente1.carrito)} o dólares estadounidenses U$S ${parseFloat(funTotal(cliente1.carrito)/valorDolar).toFixed(2)}</p>
-						<button
-							type="button"
-							class="btn btn-lg bg-gris"
-							id="botonContinuarCompra"
-						>
-							Continuar con la compra
-						</button>
-				
-				
-				`;
+	if (valorDolar!==null){
+		let texto = `<p>Sr. ${nombre} ${apellido}, su pedido es:</p>
+					<ul>
+						<li>${linea[0]}</li>
+						<li>${linea[1]}</li>
+						<li>${linea[2]}</li>
+					</ul>
+					<p>Por un monto total de pesos $ ${funTotal(cliente1.carrito)} o dólares estadounidenses U$S ${parseFloat(funTotal(cliente1.carrito)/valorDolar).toFixed(2)}</p>
+							<button
+								type="button"
+								class="btn btn-lg bg-gris"
+								id="botonContinuarCompra"
+							>
+								Continuar con la compra
+							</button>
+					`;
+				carritoHtml.innerHTML = texto;
+				escuchoBoton(cliente1);}
+		else{
+			let texto = `<p>Sr. ${nombre} ${apellido}, su pedido es:</p>
+					<ul>
+						<li>${linea[0]}</li>
+						<li>${linea[1]}</li>
+						<li>${linea[2]}</li>
+					</ul>
+					<p>Por un monto total de pesos $ ${funTotal(cliente1.carrito)}</p>
+							<button
+								type="button"
+								class="btn btn-lg bg-gris"
+								id="botonContinuarCompra"
+							>
+								Continuar con la compra
+							</button>
+					`;
+			carritoHtml.innerHTML = texto;
+			escuchoBoton(cliente1);
+		}
 
-	carritoHtml.innerHTML = texto;
-	escuchoBoton(cliente1);
+	
 }
 
 function escuchoBoton(cliente1){
@@ -301,6 +320,7 @@ const getDolarBlue = (cliente1, cantidades, carritoHtml) =>{
 		console.log(respuestaJson)
 		let valorDolarBlue= respuestaJson.blue.value_sell;
 		escribirMensajeHtml(cliente1, cantidades, carritoHtml,valorDolarBlue);})
+	.catch (error => escribirMensajeHtml(cliente1, cantidades, carritoHtml,null));
 }
 
 
